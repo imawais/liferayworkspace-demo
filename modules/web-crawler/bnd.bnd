@@ -1,0 +1,7 @@
+Bundle-Name: web-crawler
+Bundle-SymbolicName: web.crawler
+Bundle-Version: 1.0.0
+Export-Package: web.crawler.constants
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"
