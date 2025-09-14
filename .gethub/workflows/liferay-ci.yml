@@ -1,1 +1,31 @@
+name: Liferay CI Test
 
+on:
+  push:
+    branches: [ main ]  # Change to your branch if different
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Free GitHub-hosted machine
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'  # Match your Liferay's JDK (e.g., 11 or 17)
+        distribution: 'temurin'
+
+    - name: Make Gradle executable
+      run: chmod +x ./gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build  # This builds all modules; use 'assemble' if you skip tests
+
+    - name: Archive artifacts (optional)
+      uses: actions/upload-artifact@v4
+      with:
+        name: liferay-artifacts
+        path: modules/*/build/libs/*.jar  # Adjust to your artifact paths (e.g., *.war)
